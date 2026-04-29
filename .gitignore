@@ -1,0 +1,59 @@
+# ── Python ────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# ── Virtual environments ──────────────────────────────────────────────────────
+venv/
+.venv/
+env/
+.env/
+
+# ── Environment / secrets ─────────────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+
+# ── Django ────────────────────────────────────────────────────────────────────
+*.log
+*.pot
+db.sqlite3
+media/
+staticfiles/
+static_root/
+
+# ── Celery ────────────────────────────────────────────────────────────────────
+celerybeat-schedule
+celerybeat-schedule.db
+celerybeat.pid
+
+# ── Coverage / testing ────────────────────────────────────────────────────────
+.coverage
+htmlcov/
+.pytest_cache/
+coverage.xml
+*.xml
+
+# ── IDEs & editors ────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ── OS ────────────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── Node (UI assets) ─────────────────────────────────────────────────────────
+node_modules/
+npm-debug.log*
+yarn-error.log*
