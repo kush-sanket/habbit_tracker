@@ -1,16 +1,26 @@
 """
 task_service.py — Task CRUD and state transitions.
 """
-from datetime import datetime
+from datetime import date, datetime
 
 from django.db import transaction
 from django.utils import timezone
+from rest_framework.exceptions import PermissionDenied
 
 from tracker.models import Branch, Task, User
 from tracker.services import streak_service
 
 
+DAILY_TASK_LIMIT = 10
+
+
 def create_task(user: User, branch_id: int, title: str, frequency: str, due_date: datetime) -> Task:
+    today = date.today()
+    created_today = Task.objects.filter(branch__user=user, created_at__date=today).count()
+    if created_today >= DAILY_TASK_LIMIT:
+        raise PermissionDenied(
+            f'Daily task limit reached. You can only create {DAILY_TASK_LIMIT} tasks per day.'
+        )
     branch = Branch.objects.get(pk=branch_id, user=user)
     task = Task.objects.create(
         branch=branch,

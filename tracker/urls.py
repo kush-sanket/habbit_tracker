@@ -1,5 +1,6 @@
 from django.urls import path
 
+from tracker.views.analytics_views import dashboard_analytics
 from tracker.views.auth_views import login, logout, register
 from tracker.views.branch_views import branch_detail, create_branch, list_branches
 from tracker.views.category_views import list_categories
@@ -48,4 +49,7 @@ urlpatterns = [
 
     # ── Leaderboard ───────────────────────────────────────────────────────────
     path('leaderboard/', leaderboard, name='leaderboard'),
+
+    # ── Analytics ────────────────────────────────────────────────────────────
+    path('analytics/dashboard/', dashboard_analytics, name='analytics-dashboard'),
 ]

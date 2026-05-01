@@ -10,6 +10,7 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.exceptions import TokenError
 from rest_framework_simplejwt.tokens import RefreshToken
 
+from tracker.models import LoginLog
 from tracker.serializers import RegisterSerializer, UserSerializer
 from tracker.services import auth_service
 
@@ -97,6 +98,10 @@ def login(request):
             {'detail': 'Invalid credentials.'},
             status=status.HTTP_401_UNAUTHORIZED,
         )
+
+    # Record today as a login day (idempotent — unique_together prevents duplicates)
+    from django.utils import timezone
+    LoginLog.objects.get_or_create(user=user, login_date=timezone.now().date())
 
     refresh = RefreshToken.for_user(user)
     return Response(

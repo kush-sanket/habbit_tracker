@@ -157,3 +157,18 @@ class Streak(models.Model):
 
     def __str__(self):
         return f'{self.user.username}: {self.current_streak} days'
+
+
+class LoginLog(models.Model):
+    """Records each unique calendar day a user logs in."""
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='login_logs', db_index=True
+    )
+    login_date = models.DateField(db_index=True)
+
+    class Meta:
+        db_table = 'login_logs'
+        unique_together = ('user', 'login_date')
+
+    def __str__(self):
+        return f'{self.user.username} logged in on {self.login_date}'
